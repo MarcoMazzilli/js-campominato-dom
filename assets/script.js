@@ -5,9 +5,9 @@
 const btnStart    = document.getElementById("startButton");
 const mainWrapper = document.querySelector(".main-wrapper");
 const levelsBlock = [100 , 81 , 49];
-const numberBombs  = 16; 
-let   arrayBomb    = [];
-
+const numberBombs =5; //dato da cambiare
+let   arrayBomb   = [];
+let   finishGame  = false
 //==================================
 //            EVENTI 
 //==================================
@@ -26,9 +26,15 @@ btnStart.addEventListener("click", function(){
     const singleBox = generateBox();
     singleBox.zzIdBox = i + 1;
   
-    singleBox.addEventListener("click", function(){
+    singleBox.addEventListener("click", function(){ //qui devo aggiungere la fine del gioco 
       this.classList.toggle("active")
-      console.log(this.zzIdBox)
+      console.log(this)
+
+      if (arrayBomb.includes(this.zzIdBox)) { ///////////////
+        console.warn("hai toccato una bomba")
+        endGame()
+      }
+
     })
 
     playGround.appendChild(singleBox)
@@ -40,11 +46,13 @@ btnStart.addEventListener("click", function(){
 
 
 
+
 // ====================================
 //              FUNZIONI 
 //=====================================
 
-function generateContainer() { //Genero il playground
+// PLAYGROUND GENERATOR
+function generateContainer() { 
   const container       = document.createElement("div")
   container.className   = "container"
 
@@ -52,9 +60,8 @@ function generateContainer() { //Genero il playground
   return container;
 }
 
-
-///////////////////////////////
-function generateBox() { //Genero le singole celle
+// SINGLE BOX GENERATOR
+function generateBox() {
   const level = document.querySelector("select").value
   const newBox = document.createElement("div");
 
@@ -69,24 +76,23 @@ function generateBox() { //Genero le singole celle
   return newBox;
 }
 
-//Resetto il main
+// RESET
 function reset (){ 
   mainWrapper.innerHTML = "";
   arrayBomb = [];
   
 }
 
-//Estrattore con range variabile
+// RANDOM NUMBER GENERATOR + RANGE
 function estrattoreRandom (min , max) { 
 
   const randomNumber = Math.floor(Math.random()*(max - min + 1) + min)
   return randomNumber
 }
 
-// == BOMBS GENERATOR
+// BOMBS GENERATOR
 function generateBomb(nMax) { 
   console.log(nMax);
-
 
  do {
   let newBomb = estrattoreRandom(1 , nMax)
@@ -95,4 +101,7 @@ function generateBomb(nMax) {
     arrayBomb.push(newBomb)
   }
  }while (arrayBomb.length < numberBombs)
+
+ return arrayBomb
 }
+
