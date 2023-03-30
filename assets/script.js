@@ -5,9 +5,12 @@
 const btnStart    = document.getElementById("startButton");
 const mainWrapper = document.querySelector(".main-wrapper");
 const levelsBlock = [100 , 81 , 49];
-const numberBombs =5; //dato da cambiare
+const numberBombs = 16 ; //dato da cambiare
 let   arrayBomb   = [];
-let   finishGame  = false
+let   finishGame  = false ; 
+let   point       = 0 ;
+
+
 //==================================
 //            EVENTI 
 //==================================
@@ -26,16 +29,22 @@ btnStart.addEventListener("click", function(){
     const singleBox = generateBox();
     singleBox.zzIdBox = i + 1;
   
-    singleBox.addEventListener("click", function(){ //qui devo aggiungere la fine del gioco 
+    singleBox.addEventListener("click", function(){   //qui devo aggiungere la fine del gioco 
+      
       this.classList.toggle("active")
-      console.log(this)
+      console.log('Id box -->',this.zzIdBox)
+
 
       if (arrayBomb.includes(this.zzIdBox)) { ///////////////
         console.warn("hai toccato una bomba");
         singleBox.classList.remove("active");
         singleBox.classList.add("warn");
         endGame() //da completare
-      }
+       } else {
+        point++
+        console.log('Points -->',point)
+       }
+
 
     })
 
@@ -45,8 +54,6 @@ btnStart.addEventListener("click", function(){
   bombList = generateBomb(levelsBlock[level]);
   console.log("Array delle bombe",arrayBomb)
 })
-
-
 
 
 // ====================================
@@ -106,4 +113,3 @@ function generateBomb(nMax) {
 
  return arrayBomb
 }
-
