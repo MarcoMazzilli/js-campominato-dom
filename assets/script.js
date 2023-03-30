@@ -3,6 +3,8 @@
 const btnStart    = document.getElementById("startButton");
 const mainWrapper = document.querySelector(".main-wrapper");
 const levelsBlock = [100 , 81 , 49];
+const numberBoms  = 16; 
+let   arrayBomb    = [];
 
 
 //al click scaturisco questo evento
@@ -28,11 +30,15 @@ btnStart.addEventListener("click", function(){
   
     singleBox.addEventListener("click", function(){
       this.classList.toggle("active")
-      console.log(this.zzIdBox)
+      // console.log(this.zzIdBox)
     })
 
     playGround.appendChild(singleBox)
   }
+
+  bombList = generateBomb();
+  console.log("Array delle bombe",arrayBomb)
+
 })
 
 
@@ -49,6 +55,8 @@ function generateContainer() { //Genero il playground
   return container;
 }
 
+
+///////////////////////////////
 function generateBox() { //Genero le singole celle
   const level = document.querySelector("select").value
   const newBox = document.createElement("div");
@@ -64,8 +72,23 @@ function generateBox() { //Genero le singole celle
   return newBox;
 }
 
-function reset (){ //Resetto il main
-
+//Resetto il main
+function reset (){ 
   mainWrapper = "";
+}
 
+//Estrattore con range variabile
+function estrattoreRandom (min , max) { 
+
+  const randomNumber = Math.floor(Math.random()*(max - min + 1) + min)
+  return randomNumber
+}
+
+//Generatore di bombe
+function generateBomb() { 
+  for (let i = 0 ; i < numberBoms; i++) {
+    let newBomb = estrattoreRandom(1 , 100)
+    arrayBomb.push(newBomb)
+  }
+  
 }
