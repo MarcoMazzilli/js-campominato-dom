@@ -18,6 +18,8 @@ Cosa fa il click?
 
 btnStart.addEventListener("click", function(){
 
+  reset()
+
   const level = document.querySelector("select").value
   
   const playGround = generateContainer()   //Creo il playground
@@ -26,19 +28,18 @@ btnStart.addEventListener("click", function(){
   for (let i = 0 ; i < levelsBlock[level] ; i++) {   //Ciclo per generare i box
   
     const singleBox = generateBox();
-    singleBox.zzIdBox = i + 1
+    singleBox.zzIdBox = i;
   
     singleBox.addEventListener("click", function(){
       this.classList.toggle("active")
-      // console.log(this.zzIdBox)
+      console.log(this.zzIdBox)
     })
 
     playGround.appendChild(singleBox)
   }
 
-  bombList = generateBomb();
+  bombList = generateBomb(levelsBlock[level]);
   console.log("Array delle bombe",arrayBomb)
-
 })
 
 
@@ -74,7 +75,9 @@ function generateBox() { //Genero le singole celle
 
 //Resetto il main
 function reset (){ 
-  mainWrapper = "";
+  mainWrapper.innerHTML = "";
+  arrayBomb = [];
+  
 }
 
 //Estrattore con range variabile
@@ -84,10 +87,11 @@ function estrattoreRandom (min , max) {
   return randomNumber
 }
 
-//Generatore di bombe
-function generateBomb() { 
+//Generatore di bombe //pensare un ciclo "while" che lavora fin quando l'array bombs non e uguale a 16;
+function generateBomb(nMax) { 
+  console.log(nMax);
   for (let i = 0 ; i < numberBoms; i++) {
-    let newBomb = estrattoreRandom(1 , 100)
+    let newBomb = estrattoreRandom(1 , nMax)
     arrayBomb.push(newBomb)
   }
   
