@@ -1,20 +1,16 @@
-//================ GLOBALI ==================
+//==================================
+//            GLOBALI 
+//==================================
 
 const btnStart    = document.getElementById("startButton");
 const mainWrapper = document.querySelector(".main-wrapper");
 const levelsBlock = [100 , 81 , 49];
-const numberBoms  = 16; 
+const numberBombs  = 16; 
 let   arrayBomb    = [];
 
-
-//al click scaturisco questo evento
-/*
-Cosa fa il click?
-1. prima fa un reset di tutto quello che trova nel "main" con una funzione
-2. Genera la nuova griglia con una FUNZIONE
-*/
-
-
+//==================================
+//            EVENTI 
+//==================================
 
 btnStart.addEventListener("click", function(){
 
@@ -28,7 +24,7 @@ btnStart.addEventListener("click", function(){
   for (let i = 0 ; i < levelsBlock[level] ; i++) {   //Ciclo per generare i box
   
     const singleBox = generateBox();
-    singleBox.zzIdBox = i;
+    singleBox.zzIdBox = i + 1;
   
     singleBox.addEventListener("click", function(){
       this.classList.toggle("active")
@@ -87,12 +83,16 @@ function estrattoreRandom (min , max) {
   return randomNumber
 }
 
-//Generatore di bombe //pensare un ciclo "while" che lavora fin quando l'array bombs non e uguale a 16;
+// == BOMBS GENERATOR
 function generateBomb(nMax) { 
   console.log(nMax);
-  for (let i = 0 ; i < numberBoms; i++) {
-    let newBomb = estrattoreRandom(1 , nMax)
+
+
+ do {
+  let newBomb = estrattoreRandom(1 , nMax)
+
+  if ((!(arrayBomb.includes(newBomb)))) {
     arrayBomb.push(newBomb)
   }
-  
+ }while (arrayBomb.length < numberBombs)
 }
