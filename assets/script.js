@@ -31,8 +31,10 @@ btnStart.addEventListener("click", function(){
       console.log(this)
 
       if (arrayBomb.includes(this.zzIdBox)) { ///////////////
-        console.warn("hai toccato una bomba")
-        endGame()
+        console.warn("hai toccato una bomba");
+        singleBox.classList.remove("active");
+        singleBox.classList.add("warn");
+        endGame() //da completare
       }
 
     })

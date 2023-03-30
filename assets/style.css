@@ -52,6 +52,10 @@ main {
   cursor: pointer;
 }
 
+.warn {
+  background-color: red;
+}
+
 .box.easy {
   width: calc(100% / 10);
   aspect-ratio: 1/1;
